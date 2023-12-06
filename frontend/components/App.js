@@ -100,6 +100,7 @@ export default function App() {
     .then(res =>{
 
       getArticles()
+      setMessage('')
       setMessage(res.data.message)
       console.log(res.data)
     })
