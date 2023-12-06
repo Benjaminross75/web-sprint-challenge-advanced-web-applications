@@ -65,7 +65,7 @@ export default function App() {
     .then(res =>{
 
         setArticles(res.data.articles)
-       // setMessage(res.data.message)
+        setMessage(res.data.message)
 
     })
     .catch(err =>{
