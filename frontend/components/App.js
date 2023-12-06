@@ -95,12 +95,12 @@ export default function App() {
     // The flow is very similar to the `getArticles` function.
     // You'll know what to do! Use log statements or breakpoints
     // to inspect the response from the server.
-
+    getArticles()
     axiosWithAuth().post('http://localhost:9000/api/articles', article)
     .then(res =>{
 
-      getArticles()
-      setMessage('')
+      //getArticles()
+     // setMessage('')
       setMessage(res.data.message)
       console.log(res.data)
     })
