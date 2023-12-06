@@ -20,9 +20,9 @@ const {
     // ✨ implement
     if(currentArticleId){
       setValues({
-        title: currentArticleId.title,
-        text: currentArticleId.text,
-        topic: currentArticleId.topic
+        title: currentArticleId.title || '',
+        text: currentArticleId.text || '',
+        topic: currentArticleId.topic || '',
       })
     } else{
       setValues(initialFormValues)
