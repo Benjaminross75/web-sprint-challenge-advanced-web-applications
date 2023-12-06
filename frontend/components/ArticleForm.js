@@ -58,6 +58,15 @@ const {
   const isDisabled = () => {
     // ✨ implement
     // Make sure the inputs have some values
+    const isTitleEmpty = values.title.trim() === '';
+    const isTextEmpty = values.text.trim() === '';
+    const isTopicEmpty = values.topic.trim() === '';
+
+
+    const isValidTopic = ['JavaScript', 'React', 'Node'].includes(values.topic);
+
+   
+    return isTitleEmpty || isTextEmpty || isTopicEmpty || !isValidTopic;
   }
 
   return (
@@ -105,4 +114,3 @@ ArticleForm.propTypes = {
     topic: PT.string.isRequired,
   })
 }
-
