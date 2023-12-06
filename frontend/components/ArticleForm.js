@@ -5,20 +5,33 @@ const initialFormValues = { title: '', text: '', topic: '' }
 
 export default function ArticleForm(props) {
   const [values, setValues] = useState(initialFormValues)
+
   // ✨ where are my props? Destructure them here
-  const {
-    setCurrentArticleId,
-    updateArticle,
-    postArticle,
-    currentArticleId,
-    articles
-  } = props
+const {
+  setCurrentArticleId,
+  updateArticle,
+  postArticle,
+  currentArticleId,
+  articles
+
+} = props
   useEffect(() => {
+
     // ✨ implement
+    if(currentArticleId){
+      setValues({
+        title: currentArticleId.title,
+        text: currentArticleId.text,
+        topic: currentArticleId.topic
+      })
+    } else{
+      setValues(initialFormValues)
+    }
     // Every time the `currentArticle` prop changes, we should check it for truthiness:
     // if it's truthy, we should set its title, text and topic into the corresponding
     // values of the form. If it's not, we should reset the form back to initial values.
-  })
+
+  },[currentArticleId])
 
   const onChange = evt => {
     const { id, value } = evt.target
@@ -27,6 +40,16 @@ export default function ArticleForm(props) {
 
   const onSubmit = evt => {
     evt.preventDefault()
+    const newArticle = {
+      title: values.title,
+      text: values.text,
+      topic: values.topic
+      }
+
+      currentArticleId ? updateArticle({newArticle, article_id: currentArticleId.article_id})
+      : postArticle(newArticle)
+      setCurrentArticleId()
+      setValues(initialFormValues)
     // ✨ implement
     // We must submit a new post or update an existing one,
     // depending on the truthyness of the `currentArticle` prop.
@@ -82,3 +105,4 @@ ArticleForm.propTypes = {
     topic: PT.string.isRequired,
   })
 }
+

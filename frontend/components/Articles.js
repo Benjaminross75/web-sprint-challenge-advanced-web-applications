@@ -12,19 +12,22 @@ export default function Articles(props) {
     currentArticleId,
   } = props;
 
+  // ✨ implement conditional logic: if no token exists
+  // we should render a Navigate to login screen (React Router v.6)
   const navigate = useNavigate()
-  const token = window.localStorage.getItem('token')
-
+  const token = window.localStorage.getItem('token');
   if(!token){
     navigate('/')
   }
-  // ✨ implement conditional logic: if no token exists
-  // we should render a Navigate to login screen (React Router v.6)
-
   useEffect(() => {
+
     // ✨ grab the articles here, on first render only
-    getArticles()
-  })
+
+
+      getArticles()
+
+
+  },[])
 
   return (
     // ✨ fix the JSX: replace `Function.prototype` with actual functions
