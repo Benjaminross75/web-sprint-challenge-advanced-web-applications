@@ -100,7 +100,7 @@ export default function App() {
     .then(res =>{
 
       getArticles()
-
+      setMessage(res.data.message)
       console.log(res.data)
     })
     .catch(err =>console.error(err))
