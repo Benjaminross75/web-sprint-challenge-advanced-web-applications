@@ -43,7 +43,7 @@ if(!token){
                 </div>
                 <div>
                   <button disabled={!!currentArticleId} onClick={()=> setCurrentArticleId(art.article_id)}>Edit</button>
-                  <button disabled={!!currentArticleId} onClick={()=>setCurrentArticleId(art.article_id)}>Delete</button>
+                  <button disabled={!!currentArticleId} onClick={()=>deleteArticle(art.article_id)}>Delete</button>
                 </div>
               </div>
             )
@@ -66,3 +66,4 @@ Articles.propTypes = {
   setCurrentArticleId: PT.func.isRequired,
   currentArticleId: PT.number, // can be undefined or null
 }
+//setCurrentArticleId(art.article_id)

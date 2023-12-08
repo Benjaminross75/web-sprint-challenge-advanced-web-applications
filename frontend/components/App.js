@@ -63,6 +63,7 @@ export default function App() {
     })
     .finally(()=>{
       setSpinnerOn(false)
+      setMessage('')
     })
     // We should flush the message state, turn on the spinner
     // and launch an authenticated request to the proper endpoint.
@@ -87,6 +88,7 @@ export default function App() {
     .catch(err => console.error(err))
     .finally(()=> {
       setSpinnerOn(false)
+
     })
     // The flow is very similar to the `getArticles` function.
     // You'll know what to do! Use log statements or breakpoints
@@ -112,12 +114,27 @@ export default function App() {
     .catch(err => console.error(err))
     .finally(()=>{
       setSpinnerOn(false)
-      
+
     })
   }
 
   const deleteArticle = article_id => {
     // ✨ implement
+    setSpinnerOn(true)
+    setMessage('')
+    axiosWithAuth().delete(`http://localhost:9000/api/articles/${article_id}`)
+    .then(res =>{
+      console.log(res.data.message)
+      setMessage(res.data.message)
+      console.log('articles', articles)
+      setArticles((articles)=>{
+       return articles.filter((art)=> art.article_id !== article_id)
+      })
+    })
+    .catch(err => console.error(err))
+    .finally(()=>{
+      setSpinnerOn(false)
+    })
   }
 
   return (
