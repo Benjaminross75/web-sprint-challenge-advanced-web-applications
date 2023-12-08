@@ -4,29 +4,25 @@ import PT from 'prop-types'
 
 export default function Articles(props) {
   // ✨ where are my props? Destructure them here
-  const {
+   const {
     articles,
     getArticles,
     deleteArticle,
     setCurrentArticleId,
     currentArticleId,
-  } = props;
+    updateArticle,
 
+   } = props
   // ✨ implement conditional logic: if no token exists
   // we should render a Navigate to login screen (React Router v.6)
   const navigate = useNavigate()
-  const token = window.localStorage.getItem('token');
-  if(!token){
-    navigate('/')
-  }
+  const token = window.localStorage.getItem('token')
+if(!token){
+  navigate('/')
+}
   useEffect(() => {
-
     // ✨ grab the articles here, on first render only
-
-
-      getArticles()
-
-
+    getArticles()
   },[])
 
   return (
@@ -43,11 +39,11 @@ export default function Articles(props) {
                 <div>
                   <h3>{art.title}</h3>
                   <p>{art.text}</p>
-                  <p>Topic: {art.topic}</p>
+                  <p> {art.topic}</p>
                 </div>
                 <div>
-                  <button disabled={!!currentArticleId} onClick={()=>setCurrentArticleId(art)}>Edit</button>
-                  <button disabled={!!currentArticleId} onClick={()=>deleteArticle(art.article_id)}>Delete</button>
+                  <button disabled={!!currentArticleId} onClick={()=> setCurrentArticleId(art.article_id)}>Edit</button>
+                  <button disabled={!!currentArticleId} onClick={()=>setCurrentArticleId(art.article_id)}>Delete</button>
                 </div>
               </div>
             )
@@ -70,4 +66,3 @@ Articles.propTypes = {
   setCurrentArticleId: PT.func.isRequired,
   currentArticleId: PT.number, // can be undefined or null
 }
-//<button disabled={!!currentArticleId} onClick={()=>setCurrentArticleId(art.article_id)}>Edit</button>

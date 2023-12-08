@@ -5,33 +5,27 @@ const initialFormValues = { title: '', text: '', topic: '' }
 
 export default function ArticleForm(props) {
   const [values, setValues] = useState(initialFormValues)
-
   // ✨ where are my props? Destructure them here
-const {
-  setCurrentArticleId,
-  updateArticle,
-  postArticle,
-  currentArticleId,
-  articles
+   const {
+    postArticle,
+    updateArticle,
+    setCurrentArticleId,
+    currentArticleId,
+    articles,
 
-} = props
-  useEffect(() => {
-
-    // ✨ implement
-    if(currentArticleId){
-      setValues({
-        title: currentArticleId.title || '',
-        text: currentArticleId.text || '',
-        topic: currentArticleId.topic || '',
-      })
-    } else{
-      setValues(initialFormValues)
+   } = props
+   useEffect(() => {
+    if (currentArticleId && articles.length > 0) {
+      const currentArticle = articles.find(art => art.article_id === currentArticleId);
+      if (currentArticle) {
+        setValues({
+          title: currentArticle.title || '',
+          text: currentArticle.text || '',
+          topic: currentArticle.topic || '',
+        });
+      }
     }
-    // Every time the `currentArticle` prop changes, we should check it for truthiness:
-    // if it's truthy, we should set its title, text and topic into the corresponding
-    // values of the form. If it's not, we should reset the form back to initial values.
-
-  },[currentArticleId])
+  }, [currentArticleId]);//,articles
 
   const onChange = evt => {
     const { id, value } = evt.target
@@ -40,19 +34,21 @@ const {
 
   const onSubmit = evt => {
     evt.preventDefault()
-    const newArticle = {
-      title: values.title,
-      text: values.text,
-      topic: values.topic
-      }
-
-      currentArticleId ? updateArticle({newArticle, article_id: currentArticleId.article_id})
-      : postArticle(newArticle)
-      setCurrentArticleId()
-      setValues(initialFormValues)
     // ✨ implement
     // We must submit a new post or update an existing one,
     // depending on the truthyness of the `currentArticle` prop.
+    const newArticle = {
+      title: values.title,
+      text: values.text,
+      topic: values.topic,
+    };
+    const article_id = currentArticleId
+    //console.log('current id',currentArticleId)
+    currentArticleId ? updateArticle({article_id, newArticle})
+    :postArticle(newArticle)
+    //console.log(currentArticleId, "and", newArticle )
+    setValues(initialFormValues)
+
   }
 
   const isDisabled = () => {
@@ -73,7 +69,7 @@ const {
     // ✨ fix the JSX: make the heading display either "Edit" or "Create"
     // and replace Function.prototype with the correct function
     <form id="form" onSubmit={onSubmit}>
-      <h2>{currentArticleId ? "Edit Article" : "Create Article"}</h2>
+      <h2>{currentArticleId ? 'Edit Article' : 'Create Article'}</h2>
       <input
         maxLength={50}
         onChange={onChange}
@@ -96,7 +92,7 @@ const {
       </select>
       <div className="button-group">
         <button disabled={isDisabled()} id="submitArticle">Submit</button>
-      { currentArticleId && <button onClick={currentArticleId}>Cancel edit</button>}
+       {currentArticleId && <button onClick={()=>setCurrentArticleId()}>Cancel edit</button>}
       </div>
     </form>
   )
