@@ -23,6 +23,9 @@ export default function App() {
 
   const logout = () => {
     // ✨ implement
+    window.localStorage.removeItem('token');
+    setMessage('Goodbye!')
+    redirectToLogin()
     // If a token is in local storage it should be removed,
     // and a message saying "Goodbye!" should be set in its proper state.
     // In any case, we should redirect the browser back to the login screen,
@@ -63,7 +66,7 @@ export default function App() {
     })
     .finally(()=>{
       setSpinnerOn(false)
-      
+
     })
     // We should flush the message state, turn on the spinner
     // and launch an authenticated request to the proper endpoint.
