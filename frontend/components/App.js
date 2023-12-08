@@ -63,7 +63,7 @@ export default function App() {
     })
     .finally(()=>{
       setSpinnerOn(false)
-      setMessage('')
+      
     })
     // We should flush the message state, turn on the spinner
     // and launch an authenticated request to the proper endpoint.
