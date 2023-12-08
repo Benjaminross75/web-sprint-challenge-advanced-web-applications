@@ -45,9 +45,11 @@ export default function ArticleForm(props) {
     const article_id = currentArticleId
     //console.log('current id',currentArticleId)
     currentArticleId ? updateArticle({article_id, newArticle})
+
     :postArticle(newArticle)
     //console.log(currentArticleId, "and", newArticle )
     setValues(initialFormValues)
+   setCurrentArticleId()
 
   }
 
@@ -64,6 +66,10 @@ export default function ArticleForm(props) {
 
     return isTitleEmpty || isTextEmpty || isTopicEmpty || !isValidTopic;
   }
+  const clearForm = () => {
+    setCurrentArticleId('')
+    setValues(initialFormValues);
+  };
 
   return (
     // ✨ fix the JSX: make the heading display either "Edit" or "Create"
@@ -92,7 +98,7 @@ export default function ArticleForm(props) {
       </select>
       <div className="button-group">
         <button disabled={isDisabled()} id="submitArticle">Submit</button>
-       {currentArticleId && <button onClick={()=>setCurrentArticleId()}>Cancel edit</button>}
+       {currentArticleId &&  <button onClick={()=>clearForm()}>Cancel edit</button>}
       </div>
     </form>
   )
@@ -110,3 +116,4 @@ ArticleForm.propTypes = {
     topic: PT.string.isRequired,
   })
 }
+//()=>setCurrentArticleId()
