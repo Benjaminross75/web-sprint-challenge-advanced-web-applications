@@ -39,7 +39,7 @@ if(!token){
                 <div>
                   <h3>{art.title}</h3>
                   <p>{art.text}</p>
-                  <p> {art.topic}</p>
+                  <p>Topic: {art.topic}</p>
                 </div>
                 <div>
                   <button disabled={!!currentArticleId} onClick={()=> setCurrentArticleId(art.article_id)}>Edit</button>
